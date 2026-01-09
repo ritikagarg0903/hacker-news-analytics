@@ -2,6 +2,8 @@
 
 ### An end-to-end ELT pipeline and dashboard analyzing 280k+ posts to determine the factors of virality and user retention.
 
+![Dashboard Screenshot](assets/dashboard_snapshot.png)
+
 [![View Dashboard](https://img.shields.io/badge/View_Live_Dashboard-Looker_Studio-blue?style=for-the-badge&logo=google-looker-studio)](https://lookerstudio.google.com/s/s8KTCuzThzA)
 
 ## 📊 Project Overview
@@ -49,6 +51,3 @@ Using the modern data stack (**dbt, BigQuery, Looker**), I built a pipeline that
 ├── dbt_project.yml
 └── README.md
 ```
-
-## 📈 Dashboard Preview
-![Dashboard Screenshot](assets/dashboard_snapshot.png)
