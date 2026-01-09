@@ -1,0 +1,76 @@
+version: 2
+
+models:
+  # -----------------------------------------------------------------------------
+  # Staging Layer (Raw Data Cleaning)
+  # -----------------------------------------------------------------------------
+  - name: stg_hn_posts
+    description: "Staging model that cleans raw Hacker News JSON data, standardizes timestamps to UTC, and extracts domains."
+    columns:
+      - name: post_id
+        description: "Unique identifier for each Hacker News post."
+        tests:
+          - unique
+          - not_null
+      - name: created_at_utc
+        description: "Timestamp of post creation in UTC."
+        tests:
+          - not_null
+      - name: url
+        description: "The external link (if present). Null for text-only posts."
+      - name: upvotes
+        description: "Total score of the post."
+        tests:
+          - not_null
+
+  # -----------------------------------------------------------------------------
+  # Marts Layer (Business Logic)
+  # -----------------------------------------------------------------------------
+  - name: mart_funnel_overall
+    description: "Calculates the drop-off funnel from 'Created' to 'Viral' status."
+    columns:
+      - name: stage
+        description: "The funnel stage name (e.g., '1+ Upvote')."
+        tests:
+          - unique
+          - not_null
+      - name: pct_of_created
+        description: "The conversion rate relative to the top of the funnel."
+
+  - name: mart_creator_retention_curve
+    description: "Cohort analysis table tracking creator retention over 12 months."
+    columns:
+      - name: cohort_month
+        description: "The month the creator made their first post."
+        tests:
+          - not_null
+      - name: month_index
+        description: "Months elapsed since joining (0 = first month)."
+        tests:
+          - not_null
+      - name: retention_pct
+        description: "Percentage of the original cohort still active."
+
+  - name: mart_best_posting_times
+    description: "Heatmap data aggregating engagement metrics by Day of Week and Hour."
+    columns:
+      - name: day_of_week
+        description: "Day number (1=Sunday, 7=Saturday) or name."
+        tests:
+          - not_null
+      - name: hour_of_day
+        description: "Hour in UTC (0-23)."
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
+      - name: viral_probability_pct
+        description: "Percentage of posts in this time slot that achieved >100 upvotes."
+
+  - name: mart_creator_cohort_engagement
+    description: "Tracks if creators get better over time (avg upvotes on 1st post vs 5th post)."
+    columns:
+      - name: post_number
+        description: "The sequential number of the post for that author (1st, 2nd, etc.)."
+        tests:
+          - not_null

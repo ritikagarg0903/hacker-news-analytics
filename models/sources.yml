@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: hacker_news_source
+    database: bigquery-public-data
+    schema: hacker_news
+    tables:
+      - name: full
