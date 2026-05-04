@@ -4,7 +4,7 @@
 
 ![Dashboard Screenshot](assets/dashboard_snapshot.png)
 
-[![View Dashboard](https://img.shields.io/badge/View_Live_Dashboard-Looker_Studio-blue?style=for-the-badge&logo=google-looker-studio)](https://lookerstudio.google.com/s/s8KTCuzThzA)
+[![View Dashboard](https://datastudio.google.com/u/0/reporting/675fe8ae-9c14-43ef-be6f-8588b12d9f43/page/jTMvF)
 
 ## 📊 Project Overview
 This project analyzes **286,000+ Hacker News posts** from 2025 to uncover what makes content go viral and how creator retention evolves over time.
